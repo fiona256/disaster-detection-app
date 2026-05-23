@@ -26,7 +26,7 @@ export default function LoginScreen({ navigation }: any) {
 
     const handleLogin = async () => {
 
-        if (!username || !password) {
+        if (!username.trim() || !password.trim()) {
             Alert.alert("Error", "All fields are required");
             return;
         }
@@ -55,31 +55,47 @@ export default function LoginScreen({ navigation }: any) {
             style={{ flex: 1 }}
             behavior={Platform.OS === "ios" ? "padding" : undefined}
         >
-
             <ScrollView
                 contentContainerStyle={styles.container}
                 showsVerticalScrollIndicator={false}
             >
 
+                {/* TOP SECTION */}
                 <View style={styles.topSection}>
+
                     <Image
                         source={require("../assets/logo.png")}
                         style={styles.logo}
                     />
 
                     <Text style={styles.title}>
-                        Disaster Alert
+                        Disaster Alert System
                     </Text>
 
                     <Text style={styles.subtitle}>
-                        Emergency monitoring system
+                        Real-time emergency monitoring & AI-powered risk detection
                     </Text>
+
+                    <Text style={styles.description}>
+                        This system allows users to report, monitor, and analyze disaster
+                        events in real time using geolocation and AI verification.
+                    </Text>
+
+                    <Text style={styles.trust}>
+                        🔒 Secure Access • Encrypted Login • Verified Platform
+                    </Text>
+
                 </View>
 
+                {/* LOGIN CARD */}
                 <View style={styles.card}>
 
                     <Text style={styles.loginText}>
                         Welcome Back
+                    </Text>
+
+                    <Text style={styles.subLogin}>
+                        Sign in to continue to your dashboard
                     </Text>
 
                     <TextInput
@@ -88,6 +104,7 @@ export default function LoginScreen({ navigation }: any) {
                         style={styles.input}
                         value={username}
                         onChangeText={setUsername}
+                        autoCapitalize="none"
                     />
 
                     <TextInput
@@ -102,6 +119,7 @@ export default function LoginScreen({ navigation }: any) {
                     <TouchableOpacity
                         style={styles.button}
                         onPress={handleLogin}
+                        disabled={loading}
                     >
                         {loading ? (
                             <ActivityIndicator color="#fff" />
@@ -122,12 +140,15 @@ export default function LoginScreen({ navigation }: any) {
 
                 </View>
 
-            </ScrollView>
+                {/* FOOTER */}
+                <Text style={styles.footer}>
+                    © 2026 Disaster Alert System • Powered by GU Faculty of Computer Science
+                </Text>
 
+            </ScrollView>
         </KeyboardAvoidingView>
     );
 }
-
 const styles = StyleSheet.create({
 
     container: {
@@ -139,7 +160,7 @@ const styles = StyleSheet.create({
 
     topSection: {
         alignItems: "center",
-        marginBottom: 40,
+        marginBottom: 35,
     },
 
     logo: {
@@ -153,24 +174,54 @@ const styles = StyleSheet.create({
         fontSize: 32,
         fontWeight: "bold",
         marginTop: 10,
+        textAlign: "center",
     },
 
     subtitle: {
         color: "#cbd5e1",
-        marginTop: 5,
+        marginTop: 6,
+        textAlign: "center",
+        fontSize: 13,
+    },
+
+    description: {
+        color: "#94a3b8",
+        textAlign: "center",
+        marginTop: 12,
+        fontSize: 13,
+        lineHeight: 18,
+        paddingHorizontal: 10,
+    },
+
+    trust: {
+        color: "#22c55e",
+        marginTop: 10,
+        fontSize: 12,
+        fontWeight: "600",
+        textAlign: "center",
     },
 
     card: {
         backgroundColor: "white",
         borderRadius: 20,
         padding: 25,
+        shadowColor: "#000",
+        shadowOpacity: 0.1,
+        shadowRadius: 10,
+        elevation: 5,
     },
 
     loginText: {
         fontSize: 24,
         fontWeight: "bold",
-        marginBottom: 20,
         color: "#0f172a",
+    },
+
+    subLogin: {
+        color: "#64748b",
+        marginBottom: 15,
+        marginTop: 5,
+        textAlign: "center",
     },
 
     input: {
@@ -200,5 +251,12 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "#2563eb",
         fontWeight: "600",
+    },
+
+    footer: {
+        color: "#94a3b8",
+        textAlign: "center",
+        marginTop: 20,
+        fontSize: 11,
     },
 });
