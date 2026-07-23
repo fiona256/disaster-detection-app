@@ -13,7 +13,7 @@ import {
     ScrollView,
 } from "react-native";
 
-import axios from "axios";
+import { API } from "../services/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function LoginScreen({ navigation }: any) {
@@ -21,8 +21,6 @@ export default function LoginScreen({ navigation }: any) {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-
-    const API_URL = "http://192.168.150.204:8000/api/login/";
 
     const handleLogin = async () => {
 
@@ -34,7 +32,7 @@ export default function LoginScreen({ navigation }: any) {
         try {
             setLoading(true);
 
-            const res = await axios.post(API_URL, {
+            const res = await API.post("login/", {
                 username,
                 password,
             });
@@ -99,6 +97,7 @@ export default function LoginScreen({ navigation }: any) {
                     </Text>
 
                     <TextInput
+                        testID="username-input"
                         placeholder="Username"
                         placeholderTextColor="#94a3b8"
                         style={styles.input}
@@ -108,6 +107,7 @@ export default function LoginScreen({ navigation }: any) {
                     />
 
                     <TextInput
+                        testID="password-input"
                         placeholder="Password"
                         placeholderTextColor="#94a3b8"
                         style={styles.input}
@@ -117,6 +117,7 @@ export default function LoginScreen({ navigation }: any) {
                     />
 
                     <TouchableOpacity
+                        testID="login-button"
                         style={styles.button}
                         onPress={handleLogin}
                         disabled={loading}
