@@ -9,15 +9,13 @@ import {
 } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import { API } from "../services/api";
 
 export default function ProfileScreen({ navigation }: any) {
 
     const [username, setUsername] = useState("");
     const [reports, setReports] = useState([]);
     const [loading, setLoading] = useState(true);
-
-    const API_URL = "http://192.168.150.204:8000/api/dangers/";
 
     useEffect(() => {
         loadUser();
@@ -38,7 +36,7 @@ export default function ProfileScreen({ navigation }: any) {
 
         try {
 
-            const res = await axios.get(API_URL);
+            const res = await API.get("dangers/");
 
             // FILTER USER REPORTS
             const userReports = res.data.filter(

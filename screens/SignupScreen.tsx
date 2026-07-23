@@ -9,7 +9,7 @@ import {
     ActivityIndicator,
 } from "react-native";
 
-import axios from "axios";
+import { API } from "../services/api";
 
 export default function SignupScreen({ navigation }: any) {
 
@@ -17,8 +17,6 @@ export default function SignupScreen({ navigation }: any) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
-
-    const API_URL = "http://192.168.150.204:8000/api/signup/";
 
     // =========================
     // VALIDATION
@@ -64,7 +62,7 @@ export default function SignupScreen({ navigation }: any) {
         try {
             setLoading(true);
 
-            await axios.post(API_URL, {
+            await API.post("signup/", {
                 username: cleanUsername,
                 email: cleanEmail,
                 password: password,

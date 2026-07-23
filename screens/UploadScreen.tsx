@@ -9,7 +9,7 @@ import {
 } from "react-native";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import axios from "axios";
+import { API } from "../services/api";
 
 export default function UploadScreen() {
 
@@ -17,8 +17,6 @@ export default function UploadScreen() {
     const [loading, setLoading] = useState(true);
     const [refreshing, setRefreshing] = useState(false);
     const [username, setUsername] = useState("");
-
-    const API_URL = "http://192.168.150.204:8000/api/dangers/";
 
     useEffect(() => {
         init();
@@ -36,10 +34,11 @@ export default function UploadScreen() {
         try {
             setLoading(true);
 
-            const res = await axios.get(API_URL);
+            const res = await API.get("dangers/");
+            const dangers = Array.isArray(res.data) ? res.data : [];
 
             // 🔥 FILTER ONLY THIS USER
-            const myData = res.data.filter(
+            const myData = dangers.filter(
                 (item: any) => item.created_by === user
             );
 
