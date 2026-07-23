@@ -1,6 +1,7 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import HomeScreen from "../screens/HomeScreen";
+import IoTScreen from "../screens/IoTScreen";
 import UploadScreen from "../screens/UploadScreen";
 import ProfileScreen from "../screens/ProfileScreen";
 
@@ -42,6 +43,8 @@ export default function BottomTabs() {
                     ),
                 }}
             />
+
+
 
             {/* UPLOAD */}
             <Tab.Screen
